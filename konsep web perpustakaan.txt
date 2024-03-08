@@ -1,0 +1,140 @@
+Studi Kasus => Website Perpustakaan Digital (sekolah)
+
+Frontend	: HTML dan CSS
+Backend		: PHP
+Text Editor	: Sublime Text / Notepad++ / Visual Studio Code atau yang lainnya
+Web Server	: XAMPP 8.1
+
+Pengguna	: 1 Admin
+		      2.Petugas
+			  3.Peminjam(siswa)
+
+
+STRUKTUR DATABASE
+-------------------------------------------
+# Database => db_perpustakaan
+
+# tb_anggota (siswa)
+===========================================
+1 no_anggota    | char (11) primary key generate kode (USR-0001)
+2 nisn			| int (15)
+3 nama			| varchar (50)
+4 kelas			| varchar (12)
+5 absen			| int (8)
+6 username		| varchar (30)
+7 password		| varchar (30)
+8 foto			| varchar (40)
+9 created_at	| timestamp
+10 updated_at	| datetime null
+11 status       | Tinyit(4)
+
+# tb_admin (petugas,admin)
+===========================================
+1 id		    | int(11) primary key auto increment
+2 nama			| varchar (50)
+3 telepon	    | varchar (16)
+4 username		| varchar (30)
+5 password		| varchar (30)
+6 foto			| varchar (40)
+7 level      	| enum('admin','petugas')
+8 created_at	| timestamp
+9 updated_at	| datetime null
+10 status       | Tinyit(4)
+
+# tb_kategori
+===========================================
+1 id_kategori   | int(11) primary key auto_increment
+2 nama_kategori | varchar(40)
+3 created_at    | timestamp
+
+
+
+# tb_buku
+===========================================
+1 id_buku		| char(12) primary key BK-0001
+2 judul			| varchar (50)
+3 penulis	    | varchar (50)
+4 penerbit      | varchar (50)
+5 th_terbit		| date
+6 id_kategori   | int (11) foreign key
+7 jumlah_buku   | varchar (40)
+8 lokasi        | varchar (30)
+9 gambar        | varchar (40)
+10 tgl_input    | date
+11 isbn         | varchar (40)
+12 created_by	| varchar (20) foreign key
+
+
+# tb_peminjaman
+===========================================
+1 id_peminjaman | char(11) primary key TRX-0001
+2 id_buku   	| char(12) foreign key
+3 id_peminjam	| int (11) foreign key
+4 tgl_pinjam    | date null
+5 tgl_kembali   | date null
+6 status	    | enum ('proses','pinjam','kembali')
+7 ket        	| varchar(60)
+
+# tb_ulasan
+===========================================
+1 id_ulasan 	| int(11) primary key auto_increment
+2 id_buku   	| char(12) foreign key
+3 id_user	    | int (11) foreign key
+4 ulasan        | varchar (100)
+5 rating        | varchar (10)
+6 created_at    | timestamp
+
+# tb_koleksi
+===========================================
+1 id_koleksi	| int (11) auto_increment
+2 id_buku   	| char(12) foreign key
+3 id_user    	| int (11) foreign key
+4 created_at    | datetime
+
+# tb_pengunjung
+===========================================
+1 id_pengunjung	| int (11) primary key auto_increment
+2 nama   	    | varchar (40)
+3 jk    	    | varchar (20)
+4 kelas         | varchar (20)
+5 keperluan     | varchar (80)
+6 cari 			| varchar (60)
+7 saran         | varchar (100)
+8 tgl_kunjung   | date null
+9 jam_kunjung   | time null
+
+
+
+MENU
+--------------------------------------------
+1 anggota			: - Login & Register
+					  - meminjam
+					  - ulasan
+					  - setting
+					  - koleksi
+					  - keluar
+
+
+2 Admin			: - Login
+			  - Dashboard
+			  - anggota (create, read, update) blokir dari anggota || ganti password
+			  - buku (create, read, update, Delete)
+			  - ganti password dan profil
+			  - membuat laporan
+			  - keluar
+			  
+3 petugas  : - Login
+			  - Dashboard
+			  - konfirmasi peminjaman / pengembalian(create, read, update, delete)
+			  - buku (create, read, update, Delete)
+			  - ganti password dan profil
+			  - membuat laporan
+			  - keluar
+
+4 pengunjung  : memberikan ulasan
+
+
+
+			  DIBAGIAN LOGIN MENGGUNAKAN COOKIE
+		AGAR TIDAK USAH LOGIN KEMBALI DALAM JANGKA WAKTU ERTENTU
+<<================== Selamat Mengerjakan ===================>
